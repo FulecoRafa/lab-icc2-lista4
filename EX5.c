@@ -32,44 +32,61 @@ void quick_sort(int *a, int left, int right) {
     }
 }
 
-void print_comb(int *array , int *out , int k){
-    for(int i = 0 ; i < k ; i++){
+void print_comb(int *array , int *out , int index){
+    printf("[Combinação] -> ");
+    for(int i = 0 ; i < index ; i++){
         printf("%d " , array[out[i]]);
     }
     printf("\n");
 }
 
 int somas_recursivas(int *array , int i , int soma , int index , int *out , int many , int n , int k){
-    int soma = 0;
+    int total = 0;
     if(soma == 0 && many == n){
-        print_comb(array , out , k);
+        print_comb(array , out , index);
         return (1);
-    }else if(soma < 0){
+    }else if(soma < 0 || many > n){
         return (0);
     }else{
         for(int j = i ; j < k ; j++){
             out[index] = j;
-            soma += somas_recursivas(array , j+1 , soma-array[j] , index+1 , out , many + 1 , n , k);
+            total += somas_recursivas(array , j+1 , soma-array[j] , index+1 , out , many + 1 , n , k);
         }
-        return (soma);
+        return (total);
     }
 }
 
 int main(void){
-    int k , n;
+    int k , n , soma;
     int* array;
     srand(time(NULL));
     printf("Quantos números? ");
     scanf("%d" , &k);
     printf("Tamanho da upla: ");
     scanf("%d" , &n);
+    printf("Soma: ");
+    scanf("%d" , &soma);
     array = (int*) malloc(sizeof(int) * k);
+    printf("[Sequência] -> ");
     for(int i = 0 ; i < k ; i++){
         array[i] = rand() % 1090;
+        //array[i] = i;  //Descomente essa linha e comente essa para poder ter uma seuência já ordenada e mais fácil de ler
+        printf("%d " , array[i]);
     }
+    printf("\n");
     quick_sort(array , 0 , k-1);
+    printf("[Sequência ordenada] -> ");
+    for(int i = 0 ; i < k ; i++){
+        printf("%d " , array[i]);
+    }
+    printf("\n\n");
     int output[n];
-
+    int total = somas_recursivas(array , 0 , soma , 0 , output , 0 , n , k);
+    if(total == 0){
+        printf("Mal feito feito!\n");
+    }else{
+        printf("Foram encontradas %d combinações\n" , total);
+    }
 
     return 0;
 }
