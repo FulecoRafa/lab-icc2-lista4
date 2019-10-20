@@ -49,7 +49,6 @@ void merge(int* p, int ini, int meio, int fim){
 
 void mergesort(int* p, int ini, int fim)
 {
-    printf("Inside merge\n");
     if (ini < fim) //quando inicio = fim o vetor tem apenas um elemento, desta forma atingindo a condiçãode parada
     {
         int meio = (ini+fim)/2; //encontra a metade de cada recursão
@@ -63,7 +62,6 @@ void mergesort(int* p, int ini, int fim)
 
 void quick_sort(int *a, int left, int right) {
     int i, j, x, y;
-    printf("Inside quick\n");
     i = left;
     j = right;
     x = a[(left + right) / 2];
