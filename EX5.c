@@ -32,6 +32,7 @@ void quick_sort(int *a, int left, int right) {
     }
 }
 
+//Imprime uma combinação válida
 void print_comb(int *array , int *out , int index){
     printf("[Combinação] -> ");
     for(int i = 0 ; i < index ; i++){
@@ -40,16 +41,21 @@ void print_comb(int *array , int *out , int index){
     printf("\n");
 }
 
+//Faz as somas de n valores do vetor, imprime quais somas são iguais à SOMA e retorna a quantidade de combinações
+//Array é a array de valores, i o índice tratado na array , soma a soma que queremos atingir, out um vetor de índices das respostas, index o índice de out, many
+//quantos valores foram encontrados até agora, n o tamanho da upla e k o tamanho de array
 int somas_recursivas(int *array , int i , int soma , int index , int *out , int many , int n , int k){
     int total = 0;
-    if(soma == 0 && many == n){
+    if(soma == 0 && many == n){//caso base para uma combinação válida
         print_comb(array , out , index);
         return (1);
-    }else if(soma < 0 || many > n){
+    }else if(soma < 0 || many > n){//impede que o procedimento continue, pois a soma já ultrapassou SOMA
         return (0);
     }else{
-        for(int j = i ; j < k ; j++){
+        for(int j = i ; j < k ; j++){//Chama para cada valor do vetor seguinte ao valor atual
             out[index] = j;
+            //faz a chamada recursiva deste função
+            //Ele reduz da soma o valor adicionado agora como resposta, aumenta um em i, em many e em index
             total += somas_recursivas(array , j+1 , soma-array[j] , index+1 , out , many + 1 , n , k);
         }
         return (total);
