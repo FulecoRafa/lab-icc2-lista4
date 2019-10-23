@@ -101,8 +101,6 @@ void partition(int* v, int inicio, int fim, int* i, int* j) {
 	int esq = inicio;
 	int dir = fim;
 
-	for (int i = 0; i < fim - inicio + 1; i++) printf("%d ", v[i]);
-	printf("    "); 
 	do {
 		while (v[esq] < pivo) esq++;
 		while (v[dir] > pivo) dir--;
@@ -119,7 +117,7 @@ void partition(int* v, int inicio, int fim, int* i, int* j) {
 int quicksort(int* v, int inicio, int fim) {
 		int i, j;
 		partition(v, inicio, fim, &i, &j);
-		printf("\n");
+
 		if (inicio < j) quicksort(v, inicio, j);
 		if (i < fim) quicksort(v, i, fim);
 }
